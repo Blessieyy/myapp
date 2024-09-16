@@ -1,0 +1,100 @@
+/* General layout */
+.login-page {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .left-section {
+    
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  
+  .text-container {
+    position: absolute;
+    top: 25%;
+    left: 0%;
+    color: black;
+  }
+  
+  .text-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .text-container p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Right Section */
+  .right-section {
+    flex: 1;
+    background-color: #ffe4c4; /* light peach color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .login-container h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .login-container p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Form Styles */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  form label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    align-self: flex-start;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    font-size: 1rem;
+  }
+  
+  button {
+    background-color: black;
+    margin-bottom: 1.3rem;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  button:hover {
+    background-color: #333;
+  }
+  
+  .new-here {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #555;
+  }
+  

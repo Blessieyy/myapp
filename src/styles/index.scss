@@ -1,0 +1,25 @@
+:root{
+    --background-color: rgba(255, 232, 212, 1);
+    --background-light: #fff;
+    --shadow-color: rgba(0,0,0,0.2);
+    --primary-color: rgb(255, 0, 86);
+    --text-color: #0A0A0A;
+    --text-light: #575757;
+    --font-size: 16px;
+    --animation-speed: 1;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    background-color: var(--background-color);
+    
+}
