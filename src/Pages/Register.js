@@ -14,7 +14,7 @@ const Register = () => {
       </div>
       <div className="right-section">
         <div className="login-container">
-          <h2>Register</h2>
+          <h2>Sign up</h2>
           <p>Welcome To The Family!</p>
           <form>
             <label>First Name:</label>
@@ -29,7 +29,7 @@ const Register = () => {
             <input type="conpassword" placeholder="Confirm your password" />
             <button type="submit">SIGNUP</button>
           </form>
-          <p className="new-here"><Link to={'/'}>Already have an account?</Link></p>
+          <p className="new-here"><Link to={'/login'}>Already have an account?</Link></p>
         </div>
       </div>
     </div>

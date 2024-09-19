@@ -1,24 +1,19 @@
-
-import Login from './Pages/Login';
-import Register from './Pages/Register';
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import Navbar from './Components/Navbar'
+import PictureHomeSection from './Components/HomeComponents/PictureHomeSection';
+import PremuimFacilities from './Components/HomeComponents/PremiumFacilities'
 function App() {
-  return (
-    <div className="App">
-      <Router>
+    return (
+        <div className="App">
+            <Navbar />
 
-        <div className="container main">
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <div className='container main'>
+                <PictureHomeSection />
+                <PremuimFacilities />
 
-          </Routes>
+
+            </div>
         </div>
-      </Router>
-    </div>
-  );
+    )
 }
 
 export default App;

@@ -1,7 +1,8 @@
 import React from 'react';
-import '../styles/Partials/_login.scss'
+import '../styles/Partials/_login.scss';
 
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import SocialLogin from '../Components/SocialLogin';
 
 
 const images = '/images/rhema-kallianpur-jbJ-_hw2yag-unsplash.jpg';
@@ -24,9 +25,10 @@ const Login = () => {
             <label>Password:</label>
             <input type="password" placeholder="Enter your password" />
             <button type="submit">LOGIN</button>
+            <SocialLogin />
 
           </form>
-          <p className="new-here"><Link to={'/register'}>Are You New Around Here?</Link></p>
+          <p className="new-here">Are You New Around Here? <Link to={'/register'}> Login</Link></p>
         </div>
       </div>
     </div>
