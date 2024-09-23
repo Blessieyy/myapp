@@ -1,3 +1,4 @@
+import CircleImage from './CircleImage'
 import CustomImage from './CustomImage'
 
 function PremiumFacilities() {
@@ -23,6 +24,14 @@ function PremiumFacilities() {
                 <p className='desc-title'>24 Hour Medical Service<p className='info'>Professional Doctors are always on standby for any emergency issues</p></p>
                 <p className='desc-title'>Swimming Pool<p className='info'>serene swimming Pool in tropic style</p></p>
                 <p className='desc-title'>Bar area<p className='info'>every single drink that you love is found here</p></p>
+            </div>
+            <div className='col gallery circle-image'>
+                <CircleImage />
+                <CircleImage />
+                <CircleImage />
+                <CircleImage />
+                <CircleImage />
+                <CircleImage />
             </div>
         </div>
 

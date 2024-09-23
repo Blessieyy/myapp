@@ -7,6 +7,15 @@
     border-radius: 20px;
 }
 
+.circle-image {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75vw;
+    background-color: #b3a3a3;
+    position: relative;
+
+}
+
 .facility-section {
     display: flex;
     align-items: center;
@@ -36,6 +45,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.75vw;
+    margin-bottom: 2.75em;
+
 }
 
 .desc-title {
