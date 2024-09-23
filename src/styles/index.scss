@@ -35,6 +35,20 @@ button {
     font-size: 1rem;
 }
 
+
+// margin-bottom: 3rem;
+
+img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 500px;
+    height: 300px;
+    border-radius: 20px;
+}
+
+
+
 a {
     text-decoration: none;
 }
@@ -43,33 +57,7 @@ a {
 
 @import 'Partials/navbar.scss';
 @import 'Partials/pictureHomeSection.scss';
-
-// facilities 
-.facility-section {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5vw;
-
-    .col {
-        width: 50%;
-    }
-
-
-}
-
-.picture-col {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5vw;
-
-    .col-pic {
-        width: 50%;
-    }
-
-
-
-}
-
+@import 'Partials/facility.scss';
 
 
 .container {

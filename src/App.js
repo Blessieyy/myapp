@@ -1,6 +1,9 @@
 import Navbar from './Components/Navbar'
 import PictureHomeSection from './Components/HomeComponents/PictureHomeSection';
 import PremuimFacilities from './Components/HomeComponents/PremiumFacilities'
+
+
+
 function App() {
     return (
         <div className="App">
@@ -9,6 +12,7 @@ function App() {
             <div className='container main'>
                 <PictureHomeSection />
                 <PremuimFacilities />
+
 
 
             </div>

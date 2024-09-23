@@ -1,0 +1,48 @@
+// facilities 
+.custom-image {
+    background-color: #b3a3a3;
+    width: 500px;
+    height: 300px;
+    position: relative;
+    border-radius: 20px;
+}
+
+.facility-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5vw;
+
+    .col {
+        width: 50%;
+    }
+
+
+}
+
+.picture-col {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5vw;
+
+    .col-pic {
+        width: 50%;
+    }
+
+
+
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75vw;
+}
+
+.desc-title {
+    font-weight: bolder;
+    text-align: center;
+
+    .info {
+        font-weight: lighter;
+    }
+}
