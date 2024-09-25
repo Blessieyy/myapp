@@ -8,13 +8,22 @@
 }
 
 .circle-image {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.75vw;
     background-color: #b3a3a3;
+    height: 200px;
+    width: 400px;
     position: relative;
+    border-radius: 100%;
 
+
+    img {
+        position: absolute;
+        height: 200px;
+        width: 400px;
+        border-radius: 100%;
+    }
 }
+
+
 
 .facility-section {
     display: flex;
@@ -28,18 +37,15 @@
 
 }
 
+
 .picture-col {
     display: flex;
     align-items: center;
     margin-bottom: 5vw;
 
-    .col-pic {
-        width: 50%;
-    }
-
-
 
 }
+
 
 .gallery {
     display: grid;
@@ -47,6 +53,12 @@
     gap: 1.75vw;
     margin-bottom: 2.75em;
 
+}
+
+.cirgallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vw;
 }
 
 .desc-title {
