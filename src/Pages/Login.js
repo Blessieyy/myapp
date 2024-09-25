@@ -1,4 +1,4 @@
-import React from 'react';
+
 import '../styles/Partials/_login.scss';
 
 import { Link, Navigate, useNavigate } from 'react-router-dom';
