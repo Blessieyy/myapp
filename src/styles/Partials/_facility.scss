@@ -1,6 +1,6 @@
 // facilities 
 .custom-image {
-    background-color: #b3a3a3;
+    // background-color: #b3a3a3;
     width: 500px;
     height: 300px;
     position: relative;
@@ -8,17 +8,18 @@
 }
 
 .circle-image {
-    background-color: #b3a3a3;
+
     height: 200px;
     width: 400px;
     position: relative;
     border-radius: 100%;
+    margin-bottom: 1.73rem;
 
 
     img {
         position: absolute;
-        height: 200px;
-        width: 400px;
+        height: 100%;
+        width: 100%;
         border-radius: 100%;
     }
 }

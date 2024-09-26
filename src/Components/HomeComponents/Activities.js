@@ -15,8 +15,12 @@ function Activities() {
         <div><div className='col cirgallery'>
             {images.map((src, index) => (
                 <CircleImage key={index} imgSrc={src} pt={'60%'} />
+
             ))}
-        </div></div>
+
+
+        </div>
+        </div>
     )
 }
 

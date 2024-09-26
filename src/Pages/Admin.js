@@ -24,10 +24,10 @@ const Login = () => {
                         <input type="email" placeholder="Enter your email" />
                         <label>Password:</label>
                         <input type="password" placeholder="Enter your password" />
-                        <button type="submit">LOGIN</button>
+                        <button>LOGIN</button>
 
                     </form>
-                    <p className="new-here">Are You New Around Here? <Link to={'/register'}> Login</Link></p>
+                    <p className="new-here">Are You New Around Here? <Link to={'/adminreg'}> Login</Link></p>
                 </div>
             </div>
         </div>
