@@ -9,7 +9,7 @@ function PictureHomeSection() {
                 <p>Indulge in The Epitome Of Coastal Regions As You Discover The Breathtaking Beauty And Tranquility Of CoastalLiving Hotels</p>
             </div>
             <div className="image-container">
-                <img src="/images/sasha-kaunas-TAgGZWz6Qg8-unsplash.jpg" alt="Coastal Living Resort" />                {/* Replace with your image element */}
+                <img src="/images/sasha-kaunas-TAgGZWz6Qg8-unsplash.jpg" alt="Coastal Living Resort" />
 
             </div>
         </div>

@@ -24,7 +24,7 @@ const Login = () => {
             <input type="email" placeholder="Enter your email" />
             <label>Password:</label>
             <input type="password" placeholder="Enter your password" />
-            <button type="submit">LOGIN</button>
+            <button type="submit">SIGNUP</button>
             <SocialLogin />
 
           </form>

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./Components/Footer";
-
+import HotelSearch from "./Components/SearchHotelComponents/HotelSearch";
 
 
 import Home from './Pages/Home';
@@ -15,11 +15,11 @@ function App() {
             <Router>
 
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/admin" element={<Admin />} />
-                    <Route path="/adminreg" element={<AdminRegister />} />
+                    <Route path="/" element={<AdminRegister />} />
                 </Routes>
 
                 <div className='container main'>
