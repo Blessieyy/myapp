@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore/lite';
-// Make sure your Firebase is correctly initialized
 import Navbar from "../Navbar";
 import { db } from '../firebase';
 

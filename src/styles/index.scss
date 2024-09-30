@@ -61,85 +61,128 @@ a {
 @import 'Partials/facility.scss';
 @import 'Partials/booking.scss';
 @import 'Partials/footer.scss';
-
-//Hotel Search
-.hotel-search-container {
-    background-color: var(--background-color);
-    padding: 20px;
-    text-align: center;
-    min-height: 100vh;
+@import 'Partials/roomselection.scss';
+@import 'Partials/search.scss';
 
 
+
+//rooms details
+.room-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f2e9e4;
+    font-family: 'Arial', sans-serif;
 
     .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #707070;
+        color: white;
+        padding: 1rem;
+        width: 100%;
 
-        background-size: cover;
-        background-position: center;
-        border-radius: 20px;
-        padding: 70px;
-        color: black;
+        .back-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
 
         h1 {
-            font-size: 24px;
-            font-weight: bold;
+            flex-grow: 1;
             text-align: center;
         }
 
-        .search-bar {
+        .username-section {
             display: flex;
-            justify-content: center;
-            margin-top: 20px;
+            align-items: center;
+            font-size: 1.2rem;
 
-            .search-input {
-                padding: 10px;
-                font-size: 18px;
-                border-radius: 30px;
-                border: 1px solid #ccc;
-                width: 300px;
-            }
-
-            .search-button {
-                background-color: white;
-                border: none;
-                margin-left: -40px;
-                cursor: pointer;
-                padding: 10px;
-
-                i {
-                    font-size: 18px;
-                }
-
+            i {
+                font-size: 2rem;
+                margin-right: 0.5rem;
             }
         }
     }
 
-    .form-section {
-        margin-top: 50px;
+    .room-image-container {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        background-color: #eee;
+
+        .room-image {
+            position: absolute;
+            border-radius: 0 20px;
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+    }
+
+    .action-buttons {
         display: flex;
-        justify-content: center;
-        gap: 20px;
+        justify-content: space-around;
+        margin: 1rem 0;
+        width: 80%;
 
-        .dropdown {
-            select {
-                padding: 10px;
-                border-radius: 10px;
-                width: 200px;
-                background-color: white;
+        .action-button {
+            background-color: #333;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+
+            &:hover {
+                background-color: #555;
             }
         }
     }
 
-    .search-button-container {
-        margin-top: 30px;
+    .date-picker {
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
 
-        .next-button {
-            background-color: black;
+        .date-input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            label {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            input {
+                padding: 0.75rem;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                width: 150px;
+                text-align: center;
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .footer {
+        margin-top: 2rem;
+        width: 80%;
+
+        .continue-button {
+            background-color: #333;
             color: white;
-            padding: 10px 30px;
-            border-radius: 50px;
+            padding: 1rem 2rem;
             border: none;
-            font-size: 18px;
+            border-radius: 15px;
             cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
 
             &:hover {
                 background-color: #555;
@@ -148,11 +191,15 @@ a {
     }
 }
 
+
+
+
 .error-message {
     color: red;
     background-color: rgb(255, 201, 201);
     border-radius: 20px;
 }
+
 
 
 .Admin-head {

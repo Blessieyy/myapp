@@ -1,0 +1,141 @@
+//roomselect
+.room-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f2e9e4;
+    font-family: 'Arial', sans-serif;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #707070;
+        color: white;
+        padding: 1rem;
+        width: 100%;
+
+        .back-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        h1 {
+            flex-grow: 1;
+
+            .room-header {
+                text-align: left;
+            }
+        }
+
+        .username-section {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+
+            i {
+                font-size: 2rem;
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
+    .room-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        cursor: pointer;
+
+        :hover {
+
+            scale: 1.1;
+            box-shadow: 16px 16px var(--shadow);
+            transition: all 0.2s;
+
+        }
+
+
+
+        .room-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffd8b4;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            width: 100%;
+
+
+
+
+            .room-image {
+                position: relative;
+                width: 150px;
+                height: 150px;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+
+            .room-details {
+                flex-grow: 1;
+                margin-left: 1rem;
+
+                h2 {
+                    margin-bottom: 0.5rem;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                }
+
+                p {
+                    margin-bottom: 0.5rem;
+                    font-size: 1rem;
+                }
+
+                .rating {
+                    i {
+                        color: #ffcc00; // Gold star color
+                    }
+                }
+            }
+
+            .room-price {
+                font-size: 1.2rem;
+                font-weight: bold;
+                margin-left: 1rem;
+            }
+        }
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        margin-top: 2rem;
+
+        button {
+            background-color: #333;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1rem;
+
+            &:hover {
+                background-color: #555;
+            }
+        }
+
+        .home-button,
+        .back-button,
+        .continue-button {
+            flex-grow: 1;
+            margin: 0 0.5rem;
+        }
+    }
+}
