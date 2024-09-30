@@ -27,6 +27,7 @@ body {
 button {
     background-color: black;
     margin-bottom: 1.3rem;
+    margin-right: 1.75rem;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -81,7 +82,7 @@ a {
         h1 {
             font-size: 24px;
             font-weight: bold;
-            text-align: left;
+            text-align: center;
         }
 
         .search-bar {
@@ -131,7 +132,7 @@ a {
     .search-button-container {
         margin-top: 30px;
 
-        .main-search-button {
+        .next-button {
             background-color: black;
             color: white;
             padding: 10px 30px;
@@ -145,6 +146,12 @@ a {
             }
         }
     }
+}
+
+.error-message {
+    color: red;
+    background-color: rgb(255, 201, 201);
+    border-radius: 20px;
 }
 
 
