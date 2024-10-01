@@ -11,6 +11,7 @@ import Addrooms from "./Components/RoomComponents/Addrooms";
 import UserProfile from "./Pages/UserProfile";
 import RoomSelection from "./Components/RoomComponents/RoomSelection";
 import RoomDetails from "./Components/RoomComponents/RoomDetails";
+import PaymentForm from "./Components/PaymentForm";
 
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
                     <Route path="/addrooms" element={<Addrooms />} />
                     <Route path="/profile" element={<UserProfile />} />
                     <Route path="/roomselection" element={<RoomSelection />} />
-                    <Route path="/" element={<RoomDetails />} />
+                    <Route path="/roomdetails" element={<RoomDetails />} />
+                    <Route path="/" element={<PaymentForm />} />
                 </Routes>
 
                 <div className='container main'>

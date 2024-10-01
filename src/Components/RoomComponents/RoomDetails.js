@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBackward, faUser, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 
 const RoomDetails = () => {
     const [checkInDate, setCheckInDate] = useState('');
@@ -14,11 +15,11 @@ const RoomDetails = () => {
         <div className="room-details">
             <header className="header">
                 <button className="back-button">
-                    <i className="fas fa-arrow-left"></i> {/* Font Awesome back arrow */}
+                    <i className="fas fa-arrow-left"><FontAwesomeIcon icon={faBackward} className='icon' /></i> {/* Font Awesome back arrow */}
                 </button>
-                <h1 className='room-header'>The Capital Zimbali Resort</h1>
+                <h1 className='room-header'>Room Check in</h1>
                 <div className="username-section">
-                    <i className="fas fa-user-circle"></i> {/* Font Awesome user icon */}
+                    <i className="fas fa-user-circle"><FontAwesomeIcon icon={faUserAlt} /></i> {/* Font Awesome user icon */}
                     <span>USERNAME</span>
                 </div>
             </header>
@@ -57,7 +58,7 @@ const RoomDetails = () => {
                 </div>
             </div>
 
-            <footer className="footer">
+            <footer className="footer-button">
                 <button className="continue-button">Continue</button>
             </footer>
         </div>

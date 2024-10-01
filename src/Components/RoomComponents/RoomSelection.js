@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBackward } from '@fortawesome/free-solid-svg-icons/faBackward';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
-import { faStarOfLife } from '@fortawesome/free-solid-svg-icons/faStarOfLife';
+
 
 
 
