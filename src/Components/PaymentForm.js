@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
 
 const PaymentForm = () => {
+    const [stripe, setStripe] = useState(null); // State to hold the Stripe instance
     const [formData, setFormData] = useState({
         email: '',
         cardNumber: '',
@@ -13,6 +14,16 @@ const PaymentForm = () => {
 
     const [errorMessage, setErrorMessage] = useState('');
     const [paymentSuccess, setPaymentSuccess] = useState(false);
+
+    // Load Stripe asynchronously when the component mounts
+    useEffect(() => {
+        const loadStripeAsync = async () => {
+            console.log(process.env.REACT_APP_STRIPE_PUBLIC_KEY); // Debugging line
+            const stripeInstance = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+            setStripe(stripeInstance); // Set the Stripe instance in state
+        };
+        loadStripeAsync();
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

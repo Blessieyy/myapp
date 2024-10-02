@@ -12,6 +12,7 @@ import UserProfile from "./Pages/UserProfile";
 import RoomSelection from "./Components/RoomComponents/RoomSelection";
 import RoomDetails from "./Components/RoomComponents/RoomDetails";
 import PaymentForm from "./Components/PaymentForm";
+import Review from "./Components/RoomComponents/Review";
 
 
 function App() {
@@ -24,12 +25,13 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/admin" element={<Admin />} />
-                    <Route path="/adminreg" element={<AdminRegister />} />
+                    <Route path="/" element={<AdminRegister />} />
                     <Route path="/addrooms" element={<Addrooms />} />
                     <Route path="/profile" element={<UserProfile />} />
                     <Route path="/roomselection" element={<RoomSelection />} />
                     <Route path="/roomdetails" element={<RoomDetails />} />
-                    <Route path="/" element={<PaymentForm />} />
+                    <Route path="/pay" element={<PaymentForm />} />
+                    <Route path="/review" element={<Review />} />
                 </Routes>
 
                 <div className='container main'>

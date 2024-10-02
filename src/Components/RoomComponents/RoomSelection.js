@@ -19,6 +19,7 @@ const RoomSelection = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+
         const auth = getAuth();
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -36,7 +37,9 @@ const RoomSelection = () => {
 
         // Clean up the subscription when the component unmounts
         return () => unsubscribe();
+
     }, []);
+
     const rooms = [
         {
             name: 'Family Room',
@@ -104,7 +107,7 @@ const RoomSelection = () => {
             <footer className="footer-button">
                 <button onClick={() => navigate('/')} className='home-button'>Home</button>
                 <button onClick={() => navigate('/addrooms')} className="back-button">Back</button>
-                <button onClick={() => navigate('/addrooms')} className="continue-button">Continue</button>
+                <button onClick={() => navigate('/roomdetails')} className="continue-button">Continue</button>
             </footer>
         </div>
     );
