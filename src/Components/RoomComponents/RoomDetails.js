@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBackward, faUser, faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const RoomDetails = () => {
     const [checkInDate, setCheckInDate] = useState('');
@@ -10,6 +11,7 @@ const RoomDetails = () => {
             pic: "/images/vojtech-bruzek-Yrxr3bsPdS0-unsplash.jpg"
         }
     ]
+    const navigate = useNavigate();
 
     return (
         <div className="room-details">
@@ -59,7 +61,7 @@ const RoomDetails = () => {
             </div>
 
             <footer className="footer-button">
-                <button className="continue-button">Continue</button>
+                <button onClick={navigate('/pay')} className="continue-button">Continue</button>
             </footer>
         </div>
     );

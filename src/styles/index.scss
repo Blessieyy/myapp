@@ -414,7 +414,7 @@ a {
                 .home-button,
                 .confirm-button {
                     background-color: black;
-                    color: white;
+                    color: rgb(0, 0, 0);
                     border: none;
                     padding: 10px 20px;
                     cursor: pointer;
@@ -427,6 +427,17 @@ a {
 }
 
 
+//profile
+.profile-card {
+    background: var(--background-color);
+    border-radius: 20px;
+    color: var(--text-light);
+    width: 350px;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
 
 .error-message {
     color: red;
