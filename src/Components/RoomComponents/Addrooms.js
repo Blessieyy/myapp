@@ -14,7 +14,9 @@ const Addrooms = () => {
     const [surname, setSurname] = useState('')
     const [roomType, setRoomType] = useState('')
     const [roomNumber, setRoomNumber] = useState('1');
+
     const navigate = useNavigate();
+
 
     const handleNextClick = () => {
         // Navigate to the Review page and pass the selected values as state
@@ -46,6 +48,17 @@ const Addrooms = () => {
         return () => unsubscribe();
     }, []);
 
+
+    const handleIncrement = () => {
+        setRoomNumber((prevRooms) => prevRooms + 1);
+
+
+    }
+    const handleDecrement = () => {
+        if (roomNumber > 1) {
+            setRoomNumber((prevRooms) => prevRooms - 1);
+        }
+    };
     return (
         <div className="hotel-search-container">
             <Navbar />
@@ -62,21 +75,49 @@ const Addrooms = () => {
 
             <div className="form-section">
                 <div className="dropdown">
-                    <select className="room-type" value={setRoomType} onChange={(e) => setRoomType(e.target.value)}>
-                        <option>Resort</option>
-                        <option>Hotel</option>
-                        <option>Suite</option>
-                    </select>
+                    <label>Choose Room Type:</label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="Resort"
+                            checked={roomType === 'Resort'}
+                            onChange={(e) => setRoomType(e.target.value)}
+                        />
+                        Resort
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="Hotel"
+                            checked={roomType === 'Hotel'}
+                            onChange={(e) => setRoomType(e.target.value)}
+                        />
+                        Hotel
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="Suite"
+                            checked={roomType === 'Suite'}
+                            onChange={(e) => setRoomType(e.target.value)}
+                        />
+                        Suite
+                    </label>
                 </div>
-                <div className="dropdown">
-                    <select className="room-number" value={setRoomNumber} onChange={(e) => setRoomNumber(e.target.value)}>
-                        <option>NO. OF ROOMS</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                    </select>
-                </div>
+                <label>NO. OF ROOMS</label>
+
+                <button onClick={handleDecrement} disabled={roomNumber === 1} value={setRoomNumber} onChange={(e) => setRoomNumber(e.target.value)}>
+                    -
+                </button>
+                <input
+                    type="number"
+                    value={roomNumber}
+                    readOnly
+                />
+                <button onClick={handleIncrement} value={setRoomNumber} onChange={(e) => setRoomNumber(e.target.value)}>
+                    +
+                </button>
+
             </div>
 
             <div className="search-button-container">

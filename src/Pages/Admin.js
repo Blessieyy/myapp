@@ -22,7 +22,7 @@ const Login = () => {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                navigate('/addrooms')
+                navigate('/dashboard')
             })
             .catch((error) => {
                 setError('Invalid email or password! You might be new here. click below to sign in')

@@ -51,7 +51,7 @@ const Navbar = () => {
                 <a href="/login">Login</a>
                 <a href="/register">SignUp</a>
                 <a href="/">Home</a>
-                <button onClick={handleClick}>Sign Out</button>
+                <button onClick={handleClick} >Sign Out</button>
                 <a href="/profile">User: {userName} {surname} </a>
             </div>
         </div>

@@ -29,6 +29,7 @@ const Register = () => {
                 userName: firstName,
                 surname: lastName,
                 emailAddress: email,
+
             };
 
             // Storing user data in Firestore under 'users' collection
