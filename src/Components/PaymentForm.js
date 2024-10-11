@@ -1,165 +1,162 @@
-import React, { useState, useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
+import { useState, useEffect } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore/lite';
+import { useNavigate } from 'react-router-dom';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGooglePay } from '@fortawesome/free-brands-svg-icons';
+import { faBackward } from '@fortawesome/free-solid-svg-icons';
+import { db } from './firebase';
+
 
 const PaymentForm = () => {
-    const [stripe, setStripe] = useState(null); // State to hold the Stripe instance
-    const [formData, setFormData] = useState({
-        email: '',
-        cardNumber: '',
-        expiration: '',
-        cvc: '',
-        country: '',
-        zip: ''
-    });
 
-    const [errorMessage, setErrorMessage] = useState('');
-    const [paymentSuccess, setPaymentSuccess] = useState(false);
 
-    // Load Stripe asynchronously when the component mounts
+    const [email, setEmail] = useState('');
+    const stripe = useStripe(); // Correct hook usage for Stripe
+    const elements = useElements(); // Correct hook usage for Stripe Elements
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState('Card'); // State for payment method
+    const [userName, setUserName] = useState(''); // State to hold the user's name
+    const [surname, setSurname] = useState('');
+    const [selectedRoom, setSelectedRoom] = useState(null); // State to hold the selected room
+
+    const navigate = useNavigate();
+
     useEffect(() => {
-        const loadStripeAsync = async () => {
-            console.log(process.env.REACT_APP_STRIPE_PUBLIC_KEY); // Debugging line
-            const stripeInstance = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
-            setStripe(stripeInstance); // Set the Stripe instance in state
-        };
-        loadStripeAsync();
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const uid = user.uid;
+                const docRef = doc(db, 'users', uid);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const userData = docSnap.data();
+                    setUserName(userData.userName);
+                    setSurname(userData.surname);
+                }
+            }
+        });
+
+        return () => unsubscribe();
     }, []);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-        setErrorMessage(''); // Clear error message when typing
-    };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Simple form validation
-        if (!formData.email || !formData.cardNumber || !formData.expiration || !formData.cvc || !formData.zip) {
-            setErrorMessage('All fields are required');
+        if (!stripe || !elements) {
+            // Stripe.js has not loaded yet
+            return;
+        }
+        setIsProcessing(true);
+
+        // Retrieve the card element for secure input
+        const cardElement = elements.getElement(CardElement); // Use 'cardElement' not 'CardElement'
+
+        // Create a payment method via Stripe Elements
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+        });
+
+        if (error) {
+            console.error('[PaymentMethod Error]', error);
+            setIsProcessing(false);
             return;
         }
 
-        // Simulate payment processing
-        setTimeout(() => {
-            setPaymentSuccess(true);
-        }, 1000); // Simulating network delay
+        const response = await fetch({
+            method: 'POST',
+            headers: {
+
+            },
+            body: JSON.stringify({
+                paymentMethodId: paymentMethod.id,
+                amount: 9000,
+            }),
+        });
+        const result = await response.json();
+        if (result.error) {
+            console.error(result.error);
+            setIsProcessing(false);
+        } else {
+            console.log('Payment Successful:', result.paymentIntent);
+            setIsProcessing(false);
+        }
     };
 
     return (
-        <div className="payment-form-container">
-            <h2>Stripe Credit Card</h2>
+        <div className='payment-container'>
+            <header className="header">
+                <button className="back-button">
+                    <i className="fas fa-arrow-left"><FontAwesomeIcon icon={faBackward} /></i>
+                </button>
+                <h1 className="room-header">Payment Form</h1>
+                <div className="username-section">
+                    <i className="fas fa-user-circle"></i>
+                    <span>{userName} {surname}</span>
+                </div>
+            </header>
 
-            {!paymentSuccess ? (
+            <div className="payment-form">
+                <h1 className='payhead'>Payment Form</h1>
+                <div className="payment-methods">
+
+                    <button
+                        className={paymentMethod === 'Card' ? 'active' : ''}
+                        onClick={() => setPaymentMethod('Card')}
+                    >
+                        <span role="img" aria-label="card">💳</span> Card
+                    </button>
+                    <button
+                        className={paymentMethod === 'ApplePay' ? 'active' : ''}
+                        onClick={() => setPaymentMethod('ApplePay')}
+                    >
+                        <span role="img" aria-label="apple-pay"></span> Apple Pay
+                    </button>
+                    <button
+                        className={paymentMethod === 'Google' ? 'active' : ''}
+                        onClick={() => setPaymentMethod('GooglePay')}
+                    >
+                        <span role="img" aria-label="apple-pay"><FontAwesomeIcon icon={faGooglePay} /></span> Pay
+                    </button>
+
+                </div>
+
                 <form onSubmit={handleSubmit}>
-                    {/* Email */}
                     <div className="form-group">
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
+                        <label>Email Address:</label>
+                        <input type="email"
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
+                        <label >Card number</label>
+                        <CardElement id="card-element" placeholder="**** **** **** ****" />
+                        {errorMessage && <div className="error-message">{errorMessage}</div>}
                     </div>
 
-                    {/* Card Number */}
                     <div className="form-group">
-                        <input
-                            type="text"
-                            name="cardNumber"
-                            placeholder="Card number"
-                            value={formData.cardNumber}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-
-                    {/* Card Icons */}
-                    <div className="form-group icon-group">
-                        <div className="icon-box">
-                            <img src="visa-icon.png" alt="Visa" />
-                        </div>
-                        <div className="icon-box">
-                            <img src="mastercard-icon.png" alt="MasterCard" />
-                        </div>
-                        <div className="icon-box">
-                            <img src="amex-icon.png" alt="Amex" />
-                        </div>
-                        <div className="icon-box">
-                            <img src="discover-icon.png" alt="Discover" />
-                        </div>
-                    </div>
-
-                    {/* Expiration & CVC */}
-                    <div className="form-row">
-                        <div className="form-group half">
-                            <input
-                                type="text"
-                                name="expiration"
-                                placeholder="MM / YY"
-                                value={formData.expiration}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </div>
-                        <div className="form-group half">
-                            <input
-                                type="text"
-                                name="cvc"
-                                placeholder="CVC"
-                                value={formData.cvc}
-                                onChange={handleInputChange}
-                                required
-                            />
-                            <img src="cvc-icon.png" alt="CVC Icon" className="cvc-icon" />
-                        </div>
-                    </div>
-
-                    {/* Country */}
-                    <div className="form-group">
-                        <select
-                            name="country"
-                            value={formData.country}
-                            onChange={handleInputChange}
-                        >
-                            <option value="United States">Select Country</option>
-                            {/* Add other countries if needed */}
+                        <label htmlFor="country">Country</label>
+                        <select id="country">
+                            <option value="SA">South Africa</option>
+                            <option value="US">United States</option>
+                            <option value="DE">Germany</option>
+                            <option value="UK">United Kingdom</option>
                         </select>
                     </div>
 
-                    {/* ZIP */}
                     <div className="form-group">
-                        <input
-                            type="text"
-                            name="zip"
-                            placeholder="ZIP"
-                            value={formData.zip}
-                            onChange={handleInputChange}
-                            required
-                        />
+                        <label htmlFor="postal-code">Postal Code</label>
+                        <input type="text" id="postal-code" placeholder="12345" />
                     </div>
 
-                    {/* Error message */}
-                    {errorMessage && (
-                        <div className="error-message">
-                            {errorMessage}
-                        </div>
-                    )}
-
-                    {/* Submit button */}
-                    <button type="submit" className="pay-button">
-                        Pay Now
+                    <button type="submit" className="submit-btn" disabled={isProcessing || !stripe}>
+                        {isProcessing ? 'Processing...' : 'Pay Now'}
                     </button>
                 </form>
-            ) : (
-                <div className="success-message">
-                    Payment Successful! Thank you for your purchase.
-                </div>
-            )}
+            </div>
         </div>
     );
 };

@@ -13,6 +13,18 @@ const RoomDetails = () => {
     ]
     const navigate = useNavigate();
 
+    const handleNextClick = () => {
+        // Navigate to the Review page and pass the selected values as state
+        navigate('/review', {
+            state: {
+                checkInDate,
+                checkOutDate,
+                roomType: 'YourRoomTypeHere',
+                roomNumber: 'YourRoomNumberHere'
+            }
+        });
+    };
+
     return (
         <div className="room-details">
             <header className="header">
@@ -61,7 +73,7 @@ const RoomDetails = () => {
             </div>
 
             <footer className="footer-button">
-                <button onClick={navigate('/pay')} className="continue-button">Continue</button>
+                <button onClick={handleNextClick} className="continue-button">Continue</button>
             </footer>
         </div>
     );

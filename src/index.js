@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from './app/store';  // default import
 import App from './App';
 
+
 import './styles/index.scss'
 
 

@@ -5,22 +5,17 @@ import Navbar from "../Navbar";
 import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 
-
-
-
-
 const Addrooms = () => {
     const [userName, setUserName] = useState(''); // State to hold the user's name
-    const [surname, setSurname] = useState('')
-    const [roomType, setRoomType] = useState('')
-    const [roomNumber, setRoomNumber] = useState('1');
+    const [surname, setSurname] = useState('');  // State to hold the user's surname
+    const [roomType, setRoomType] = useState('');
+    const [roomNumber, setRoomNumber] = useState(1);
 
     const navigate = useNavigate();
 
-
     const handleNextClick = () => {
         // Navigate to the Review page and pass the selected values as state
-        navigate('/review', {
+        navigate('/roomselection', {
             state: {
                 roomType,
                 roomNumber,
@@ -39,7 +34,9 @@ const Addrooms = () => {
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
                     setUserName(userData.userName); // Set the user's first name
-                    setSurname(userData.surname)
+                    setSurname(userData.surname); // Set the user's surname
+                } else {
+                    console.log('No such document!');
                 }
             }
         });
@@ -48,23 +45,22 @@ const Addrooms = () => {
         return () => unsubscribe();
     }, []);
 
-
     const handleIncrement = () => {
         setRoomNumber((prevRooms) => prevRooms + 1);
+    };
 
-
-    }
     const handleDecrement = () => {
         if (roomNumber > 1) {
             setRoomNumber((prevRooms) => prevRooms - 1);
         }
     };
+
     return (
         <div className="hotel-search-container">
             <Navbar />
             <header className="header">
-                <h1>Welcome, {userName}.{surname}</h1> {/* Display user's name here */}
-                <p>Lets see where will you be comfortable:)</p>
+                <h1>Welcome, {userName} {surname}</h1> {/* Display user's full name here */}
+                <p>Let's see where you'll be comfortable :)</p>
                 <div className="search-bar">
                     <input type="text" placeholder="Search Hotel" className="search-input" />
                     <button className="search-button">
@@ -104,24 +100,15 @@ const Addrooms = () => {
                         Suite
                     </label>
                 </div>
-                <label>NO. OF ROOMS</label>
 
-                <button onClick={handleDecrement} disabled={roomNumber === 1} value={setRoomNumber} onChange={(e) => setRoomNumber(e.target.value)}>
-                    -
-                </button>
-                <input
-                    type="number"
-                    value={roomNumber}
-                    readOnly
-                />
-                <button onClick={handleIncrement} value={setRoomNumber} onChange={(e) => setRoomNumber(e.target.value)}>
-                    +
-                </button>
-
+                <label>No. of Rooms:</label>
+                <button onClick={handleDecrement} disabled={roomNumber === 1}>-</button>
+                <input type="number" value={roomNumber} readOnly />
+                <button onClick={handleIncrement}>+</button>
             </div>
 
             <div className="search-button-container">
-                <button onClick={() => navigate('/roomselection')} className="back-button">Next</button>
+                <button onClick={handleNextClick} className="next-button">Next</button>
             </div>
         </div>
     );

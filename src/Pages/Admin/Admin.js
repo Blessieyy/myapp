@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
-import '../styles/Partials/_login.scss';
-
 
 
 

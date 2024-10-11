@@ -1,20 +1,38 @@
+import { faBackward } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Review = () => {
     // Use the useLocation hook to get location information
     const location = useLocation();
     // Destructure the roomType and roomNumber from the location state
-    const { roomType, roomNumber, } = location.state || { roomType: 'Not selected', roomNumber: 'Not selected' };
-    const { rooms } = location.state || { rooms: [] }
 
+    const { rooms } = location.state || { rooms: 'Not selected' }
+    const { room } = location.state || { room: 'Not selected' }
 
+    const { roomType, roomNumber, checkInDate, checkOutDate } = location.state || { roomType: 'Not selected', roomNumber: 'Not selected', checkInDate: 'no date allocated', checkOutDate: 'no date allocated' };
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/roomdetails')
+    }
+
+    const handleNextClick = () => {
+        // Navigate to the Review page and pass the selected values as state
+        navigate('/')
+
+    };
+
+    const handleHomeClick = () => {
+        navigate('/pay')
+    }
     return (
         <div className="review-container">
             <header className="review-header">
-                <button className="back-button">
-                    <img src="back-icon.png" alt="Back" />
+                <button onClick={handleClick} className="back-button">
+                    <FontAwesomeIcon icon={faBackward} />Back
                 </button>
                 <h2>REVIEW</h2>
             </header>
@@ -27,24 +45,27 @@ const Review = () => {
                         className="room-image"
                     />
                     <div className="details-text">
-                        <h3>Review</h3>
-                        <p>[LOCATION]</p>
+                        <h2>Review:</h2>
+                        <h2>{room}</h2>
                         <h4>{roomType}</h4> {/* Use roomType here */}
-                        <p>{ }</p>
+                        <p>{rooms}</p>
                     </div>
                 </div>
 
                 <div className="booking-info">
                     <div className="booking-details">
                         <div className="booking-item">
-                            <input type="text" value="BUSINESS" readOnly />
+                            <input type="text" value={`${roomType}`} readOnly />
                         </div>
                         <div className="booking-item">
-                            <input type="text" value={`${roomType} `} readOnly />
-                            <img src="calendar-icon.png" alt="Calendar" className="calendar-icon" />
+                            <input type="text" value={`${roomNumber}`} readOnly />
                         </div>
                         <div className="booking-item">
-                            <input type="text" value={`${roomNumber} `} readOnly /> {/* Use roomNumber here */}
+                            <input type="text" value={`${checkInDate} `} readOnly />
+                            <img src="calendar-icon.png" alt="" className="calendar-icon" />
+                        </div>
+                        <div className="booking-item">
+                            <input type="text" value={`${checkOutDate} `} readOnly /> {/* Use roomNumber here */}
                         </div>
                     </div>
 
@@ -54,8 +75,8 @@ const Review = () => {
                     </div>
 
                     <div className="action-buttons">
-                        <button className="home-button">HOME</button>
-                        <button className="confirm-button">CONFIRM</button>
+                        <button onClick={handleHomeClick} className="home-button">HOME</button>
+                        <button onClick={handleNextClick} className="confirm-button">CONFIRM</button>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,8 @@ import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from 'fir
 import { auth, db } from '../Components/firebase'; // Make sure to correctly initialize firebase in this file
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Use `useNavigate` for programmatic navigation
-import { setDoc, doc } from 'firebase/firestore/lite';
+import { setDoc, doc } from 'firebase/firestore';
+
 
 const Register = () => {
     const images = '/images/runnyrem-LfqmND-hym8-unsplash.jpg';
@@ -10,7 +11,7 @@ const Register = () => {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const [admin, setAdmin] = useState('')
 
 
     const navigate = useNavigate(); // Allows for programmatic navigation
@@ -29,6 +30,7 @@ const Register = () => {
                 userName: firstName,
                 surname: lastName,
                 emailAddress: email,
+                role: admin,
 
             };
 

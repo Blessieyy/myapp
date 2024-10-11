@@ -82,16 +82,20 @@ form input {
 
 
 .login-container .social-container {
+
   display: flex;
   gap: 1.31rem;
 }
 
 .social-button {
+
   background-color: #ccc;
 
 }
 
 .social-container .social-button .social-icon {
+  position: relative;
+  height: 20px;
   width: 23px;
 }
 

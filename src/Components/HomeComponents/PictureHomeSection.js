@@ -1,6 +1,3 @@
-
-
-
 function PictureHomeSection() {
     return (
         <div className="coastal-living">
@@ -16,4 +13,4 @@ function PictureHomeSection() {
     )
 }
 
-export default PictureHomeSection
+export default PictureHomeSection 
