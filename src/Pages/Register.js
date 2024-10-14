@@ -1,8 +1,8 @@
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Use `useNavigate` for programmatic navigation
+import { Link, useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
-import { auth, db } from '../Components/firebase';
+import { auth, db } from '../Components/firebase'; // Now using full Firestore SDK
 
 const Register = () => {
   const images = '/images/rhema-kallianpur-jbJ-_hw2yag-unsplash.jpg';
@@ -10,25 +10,23 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState('');
-
-  const navigate = useNavigate(); // Allows for programmatic navigation
+  const navigate = useNavigate(); // For programmatic navigation
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const auth = getAuth(); // Ensure auth is initialized correctly
     try {
+      // Create the user with email and password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const uid = user.uid;
 
-      // Prepare the user data for Firestore
+      // Prepare the user data to save to Firestore
       const userData = {
         userName: firstName,
         surname: lastName,
         emailAddress: email,
-        role: 'user', // Make sure role is properly defined
+        role: 'user', // Define the user role here
       };
 
       // Save the user data to Firestore under the 'users' collection
@@ -36,7 +34,7 @@ const Register = () => {
       console.log('User added to Firestore successfully');
 
       alert('Registered Successfully! Welcome to the family.');
-      navigate('/login'); // Navigate after successful registration
+      navigate('/login'); // Navigate to login page after successful registration
 
     } catch (error) {
       console.error('Error registering user:', error.message);
@@ -44,7 +42,7 @@ const Register = () => {
     }
   };
 
-  // Handle real-time auth state changes (if needed)
+  // Optional: Handle real-time auth state changes
   onAuthStateChanged(auth, (user) => {
     if (user) {
       console.log('User is signed in:', user.uid);
@@ -67,16 +65,36 @@ const Register = () => {
           <p>Welcome To The Family!</p>
           <form onSubmit={handleSignup}>
             <label>First Name:</label>
-            <input type="text" placeholder="Enter your First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            <input
+              type="text"
+              placeholder="Enter your First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
 
             <label>Last Name:</label>
-            <input type="text" placeholder="Enter your Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+            <input
+              type="text"
+              placeholder="Enter your Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
 
             <label>Email Address:</label>
-            <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
             <label>Password:</label>
-            <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
             <button type="submit">SIGNUP</button>
           </form>

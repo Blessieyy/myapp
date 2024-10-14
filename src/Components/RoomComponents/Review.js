@@ -21,12 +21,12 @@ const Review = () => {
 
     const handleNextClick = () => {
         // Navigate to the Review page and pass the selected values as state
-        navigate('/')
+        navigate('/pay')
 
     };
 
     const handleHomeClick = () => {
-        navigate('/pay')
+        navigate('/')
     }
     return (
         <div className="review-container">

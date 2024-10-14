@@ -19,6 +19,7 @@ import StripeWrapper from "./Components/Srtripe/StripeWrapper";
 import Review from "./Components/RoomComponents/Review";
 import Dashboard from "./Components/Dashboard";
 import { ProtectedRoute } from "./Components/ProtectedRoute";
+import SuccessPage from "./Components/SuccessPage";
 
 
 
@@ -71,6 +72,7 @@ function App() {
                     <Route path="/roomselection" element={<RoomSelection />} />
                     <Route path="/roomdetails" element={<RoomDetails />} />
                     <Route path="/pay" element={<StripeWrapper />} />
+                    <Route path="/success" element={<SuccessPage />} />
                     <Route path="/review" element={<Review />} />
                     <Route path="/dashboard" element={<ProtectedRoute admin={admin}>
                         <Dashboard></Dashboard>

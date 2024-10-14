@@ -5,7 +5,7 @@ import PaymentForm from '../PaymentForm';
 
 
 // Load your Stripe publishable key
-const stripePromise = loadStripe('your-publishable-key-here');
+const stripePromise = loadStripe('pk_test_51Q50mBJYx4FshoLlHxuSfgacLycuB4DLpcJFveklJDgdGTIwOfzYK89XdiKSmH8XkRYbTVarASCAZ7aK7Y9kw4EM00YbUurlxV');
 
 const StripeWrapper = () => {
     return (

@@ -8,19 +8,17 @@ import { faGooglePay } from '@fortawesome/free-brands-svg-icons';
 import { faBackward } from '@fortawesome/free-solid-svg-icons';
 import { db } from './firebase';
 
-
 const PaymentForm = () => {
-
-
     const [email, setEmail] = useState('');
-    const stripe = useStripe(); // Correct hook usage for Stripe
-    const elements = useElements(); // Correct hook usage for Stripe Elements
+    const stripe = useStripe();
+    const elements = useElements();
     const [errorMessage, setErrorMessage] = useState(null);
     const [isProcessing, setIsProcessing] = useState(false);
-    const [paymentMethod, setPaymentMethod] = useState('Card'); // State for payment method
-    const [userName, setUserName] = useState(''); // State to hold the user's name
+    const [paymentMethod, setPaymentMethod] = useState('Card');
+    const [userName, setUserName] = useState('');
     const [surname, setSurname] = useState('');
-    const [selectedRoom, setSelectedRoom] = useState(null); // State to hold the selected room
+    const [postalCode, setPostalCode] = useState('');
+    const [country, setCountry] = useState('SA'); // Default country
 
     const navigate = useNavigate();
 
@@ -42,55 +40,81 @@ const PaymentForm = () => {
         return () => unsubscribe();
     }, []);
 
-
     const handleSubmit = async (e) => {
+        navigate('/success'); // Redirect to success page
         e.preventDefault();
+
         if (!stripe || !elements) {
-            // Stripe.js has not loaded yet
             return;
         }
+
+        if (!postalCode || postalCode.length < 4) {
+            setErrorMessage('Please enter a valid postal code.');
+            return;
+        }
+
+
         setIsProcessing(true);
 
-        // Retrieve the card element for secure input
-        const cardElement = elements.getElement(CardElement); // Use 'cardElement' not 'CardElement'
+        const cardElement = elements.getElement(CardElement);
 
-        // Create a payment method via Stripe Elements
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        // Log billing details for debugging
+        console.log('Billing Details:', {
+            email,
+            postalCode,
+            country,
+        });
+
+        // Create the payment method with billing details
+        const { error, paymentMethod: newPaymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card: cardElement,
+            billing_details: {
+                email: email,
+                address: {
+                    postal_code: postalCode, // Postal code
+                    country: country,        // Country
+                },
+            },
         });
 
         if (error) {
             console.error('[PaymentMethod Error]', error);
+            setErrorMessage(error.message);
             setIsProcessing(false);
             return;
         }
 
-        const response = await fetch({
+        const response = await fetch('/create-payment-intent', {
             method: 'POST',
             headers: {
-
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                paymentMethodId: paymentMethod.id,
-                amount: 9000,
+                paymentMethodId: newPaymentMethod.id,
+                amount: 9000, // Example amount in cents
+                postalCode: postalCode, // Pass postal code to backend
             }),
         });
+
         const result = await response.json();
         if (result.error) {
             console.error(result.error);
+            setErrorMessage(result.error);
             setIsProcessing(false);
         } else {
             console.log('Payment Successful:', result.paymentIntent);
+            alert('Payment successful!');
             setIsProcessing(false);
+
         }
     };
 
     return (
         <div className='payment-container'>
             <header className="header">
-                <button className="back-button">
-                    <i className="fas fa-arrow-left"><FontAwesomeIcon icon={faBackward} /></i>
+                <button className="back-button" onClick={() => navigate(-1)}>
+                    <FontAwesomeIcon icon={faBackward} />
                 </button>
                 <h1 className="room-header">Payment Form</h1>
                 <div className="username-section">
@@ -102,58 +126,69 @@ const PaymentForm = () => {
             <div className="payment-form">
                 <h1 className='payhead'>Payment Form</h1>
                 <div className="payment-methods">
-
                     <button
                         className={paymentMethod === 'Card' ? 'active' : ''}
                         onClick={() => setPaymentMethod('Card')}
                     >
-                        <span role="img" aria-label="card">💳</span> Card
+                        💳 Card
                     </button>
                     <button
                         className={paymentMethod === 'ApplePay' ? 'active' : ''}
                         onClick={() => setPaymentMethod('ApplePay')}
                     >
-                        <span role="img" aria-label="apple-pay"></span> Apple Pay
+                         Apple Pay
                     </button>
                     <button
-                        className={paymentMethod === 'Google' ? 'active' : ''}
+                        className={paymentMethod === 'GooglePay' ? 'active' : ''}
                         onClick={() => setPaymentMethod('GooglePay')}
                     >
-                        <span role="img" aria-label="apple-pay"><FontAwesomeIcon icon={faGooglePay} /></span> Pay
+                        <FontAwesomeIcon icon={faGooglePay} /> Google Pay
                     </button>
-
                 </div>
 
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>Email Address:</label>
-                        <input type="email"
+                        <input
+                            type="email"
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
-                        <label >Card number</label>
-                        <CardElement id="card-element" placeholder="**** **** **** ****" />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Card number:</label>
+                        <CardElement id="card-element" />
                         {errorMessage && <div className="error-message">{errorMessage}</div>}
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="country">Country</label>
-                        <select id="country">
-                            <option value="SA">South Africa</option>
+                        <label htmlFor="country">Country:</label>
+                        <select id="country" value={country} onChange={(e) => setCountry(e.target.value)}>
                             <option value="US">United States</option>
+                            <option value="SA">South Africa</option>
                             <option value="DE">Germany</option>
                             <option value="UK">United Kingdom</option>
                         </select>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="postal-code">Postal Code</label>
-                        <input type="text" id="postal-code" placeholder="12345" />
+                        <label htmlFor="postal-code">Postal Code:</label>
+                        <input
+                            type="text"
+                            id="postal-code"
+                            value={postalCode}
+                            onChange={(e) => setPostalCode(e.target.value)}
+                            placeholder="12345"
+                            required
+                        />
                     </div>
 
-                    <button type="submit" className="submit-btn" disabled={isProcessing || !stripe}>
+                    <button type="submit" className="submit-btn" disabled={isProcessing || !stripe} jh>
                         {isProcessing ? 'Processing...' : 'Pay Now'}
+
                     </button>
                 </form>
             </div>
