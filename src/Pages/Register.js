@@ -1,8 +1,9 @@
+// Register.js
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
-import { auth, db } from '../Components/firebase'; // Now using full Firestore SDK
+import { auth, db } from '../Components/firebase'; // Adjust path as necessary
 
 const Register = () => {
   const images = '/images/rhema-kallianpur-jbJ-_hw2yag-unsplash.jpg';
@@ -10,39 +11,36 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // For programmatic navigation
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
     try {
-      // Create the user with email and password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const uid = user.uid;
 
-      // Prepare the user data to save to Firestore
       const userData = {
         userName: firstName,
         surname: lastName,
         emailAddress: email,
-        role: 'user', // Define the user role here
+        role: 'user',
       };
 
-      // Save the user data to Firestore under the 'users' collection
+      // Log Firestore instance
+      console.log('Firestore DB Instance:', db);
       await setDoc(doc(db, 'users', uid), userData);
       console.log('User added to Firestore successfully');
 
       alert('Registered Successfully! Welcome to the family.');
-      navigate('/login'); // Navigate to login page after successful registration
-
+      navigate('/login');
     } catch (error) {
       console.error('Error registering user:', error.message);
       alert(`Error: ${error.message}`);
     }
   };
 
-  // Optional: Handle real-time auth state changes
   onAuthStateChanged(auth, (user) => {
     if (user) {
       console.log('User is signed in:', user.uid);

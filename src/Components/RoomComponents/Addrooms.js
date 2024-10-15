@@ -1,3 +1,4 @@
+// Addrooms.js
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore/lite';
@@ -7,14 +8,13 @@ import { useNavigate } from 'react-router-dom';
 
 const Addrooms = () => {
     const [userName, setUserName] = useState(''); // State to hold the user's name
-    const [surname, setSurname] = useState('');  // State to hold the user's surname
+    const [surname, setSurname] = useState('');  // State to hold the user's surname
     const [roomType, setRoomType] = useState('');
     const [roomNumber, setRoomNumber] = useState(1);
 
     const navigate = useNavigate();
 
     const handleNextClick = () => {
-        // Navigate to the Review page and pass the selected values as state
         navigate('/roomselection', {
             state: {
                 roomType,
@@ -28,7 +28,7 @@ const Addrooms = () => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const uid = user.uid;
-                // Fetching user data from Firestore
+                // Fetch user data from Firestore
                 const docRef = doc(db, 'users', uid);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
@@ -59,7 +59,7 @@ const Addrooms = () => {
         <div className="hotel-search-container">
             <Navbar />
             <header className="header">
-                <h1>Welcome, {userName} {surname}</h1> {/* Display user's full name here */}
+                <h1>Welcome, {userName} {surname}</h1> {/* Display user's full name */}
                 <p>Let's see where you'll be comfortable :)</p>
                 <div className="search-bar">
                     <input type="text" placeholder="Search Hotel" className="search-input" />

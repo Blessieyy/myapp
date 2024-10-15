@@ -1,7 +1,8 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore/lite";
+// firebase.js
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import {getStorage} from 'firebase/storage';
 
 
 const firebaseConfig = {
@@ -10,14 +11,13 @@ const firebaseConfig = {
     projectId: "myapp-fe0a5",
     storageBucket: "myapp-fe0a5.appspot.com",
     messagingSenderId: "185797597842",
-    appId: "1:185797597842:web:4ed9d8cfd93c0046fc244b"
+    appId: "1:185797597842:web:b90942491af1bec0fc244b"
 };
 
-
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
 const db = getFirestore(app);
-const imageDb = getFirestore(app);
-const storage = getFirestore(app);
-export { auth, db, imageDb, storage }
+const auth = getAuth(app);
+const imgDb = getStorage(app);
+const txtDb = db
+
+export { auth, db, imgDb, txtDb };

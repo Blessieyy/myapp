@@ -62,14 +62,14 @@ function App() {
             <Router>
 
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/admin" element={<Admin />} />
                     <Route path="/adminreg" element={<AdminRegister />} />
                     <Route path="/addrooms" element={<Addrooms />} />
                     <Route path="/profile" element={<UserProfile />} />
-                    <Route path="/roomselection" element={<RoomSelection />} />
+                    <Route path="/" element={<RoomSelection />} />
                     <Route path="/roomdetails" element={<RoomDetails />} />
                     <Route path="/pay" element={<StripeWrapper />} />
                     <Route path="/success" element={<SuccessPage />} />
