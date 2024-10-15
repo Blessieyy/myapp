@@ -22,13 +22,16 @@ const RoomSelection = () => {
     const [selectedRoom, setSelectedRoom] = useState(null); // State for selected room
     const [img, setImg]=useState('')
     const [txt, setTxt]=useState('')
+    const [desc, setDesc] = useState('')
+    const [pr, setPr] = useState('')
+    const [rat, setRat] = useState('')
     const [data, setData] = useState([])
 
     const navigate = useNavigate(); // Hook for navigation
 
     const handleUpload = (e) => {
         const file = e.target.files[0]; // Get the first file from the input
-        console.log(file);
+        // console.log(file);
     
         if (file) {
             const imgs = ref(imgDb, `Imgs/${v4()}`);
@@ -49,18 +52,19 @@ const RoomSelection = () => {
 const db = getFirestore();
 
     const handleClick = async () =>{
-        const valRef = collection(txtDb, 'txtData')
-        await addDoc(valRef, {txtVal: txt, imgUrl: img})
+        const valRef = collection(db, 'rooms')
+        await addDoc(valRef, {txtVal: txt, imgUrl: img, desc, pr, rat})
         alert('Bro did you just add something')
-        console.log('txtDb:', txtDb); // Should be an object representing your Firestore instance
+        // console.log('txtDb:', txtDb);
+        getData() 
 
     }
 const getData = async () =>{
-    const valRef = collection(txtDb, 'txtData')
+    const valRef = collection(db, 'rooms')
     const dataDb = await getDocs(valRef)
     const allData = dataDb.docs.map(val=> ({...val.data(),id:val.id}))
     setData(allData)
-    console.log(dataDb)
+    // console.log(dataDb)
 }
 
     useEffect(() => {
@@ -88,43 +92,13 @@ const getData = async () =>{
     }, []);
 
 
-
-    // Example room data
-    // const rooms = [
-    //     {
-    //         name: 'Family Room',
-    //         description: '2-4 Beds | Bath | [Television] Includes Indoor Gaming For More Family Time',
-    //         rating: 5,
-    //         price: 'PRICE',
-    //         image: '/images/man-pan-KTSYy-3XVSo-unsplash.jpg'
-    //     },
-    //     {
-    //         name: 'Executive Room',
-    //         description: 'Bed | Shower | [Television] | Air Conditioner',
-    //         rating: 3,
-    //         price: 'PRICE',
-    //         image: '/images/chastity-cortijo-M8iGdeTSOkg-unsplash.jpg'
-    //     },
-    //     {
-    //         name: 'Deluxe Room',
-    //         description: '2 Beds | Shower | Bath | Television | Air Conditioner | Balcony | Small Kitchen',
-    //         rating: 4,
-    //         price: 'PRICE',
-    //         image: '/images/vojtech-bruzek-Yrxr3bsPdS0-unsplash.jpg'
-    //     },
-    //     {
-    //         name: 'Suite',
-    //         description: '3 Beds | Shower | Bath | Television | Air Conditioner | Balcony | Small Kitchen | Small living room and gaming room',
-    //         rating: 5,
-    //         price: 'PRICE',
-    //         image: '/images/datingscout-KFDuhyW5H5w-unsplash.jpg'
-    //     }
-    // ];
-
-    // // Handle room selection
-    // const handleRoomSelect = (room) => {
-    //     setSelectedRoom(room); // Set the selected room
-    // };
+const rooms ={
+    "description": "Room description here",
+    "price": "Room price here",
+    "rating": 4,
+    "imgUrl": "image URL here"
+}
+   
     console.log(data, 'data')
 
     return (
@@ -141,30 +115,24 @@ const getData = async () =>{
             </header>
 
             <div className="room-list">
-                {/* {rooms.map((room, index) => (
-                    <div
-                        className={`room-card ${selectedRoom === room ? 'selected' : ''}`} // Highlight selected room
-                        key={index}
-                        onClick={() => handleRoomSelect(room)} // Select room on click
-                    >
-                        <img src={room.image} alt={room.name} className="room-image" />
-                        <div className="room-details">
-                            <h2>{room.name}</h2>
-                            <p>{room.description}</p>
-                            <div className="rating">
-                                {Array(room.rating).fill().map((_, i) => (
-                                    <FontAwesomeIcon key={i} icon={faStar} />
-                                ))}
-                            </div>
-                        </div>
-                        <div className="room-price">
-                            <span>{room.price}</span>
-                        </div>
-                    </div>
-                ))} */}
+            <input onChange={(e)=>setTxt(e.target.value)} placeholder='Room Name' />
+                <input onChange={(e) => setDesc(e.target.value)} placeholder="Description" />
+                <input onChange={(e) => setRat(e.target.value)} placeholder="Price" />
+                <input onChange={(e) => setPr(e.target.value)} placeholder="Rating" />
+                <input type='file' onChange={(e) =>handleUpload(e)} />
+                <button onClick={handleClick}>Add</button>
+                {
+                    data.map(value=><div>
+                        <h1>{value.txtVal}</h1>
+                        <img src={value.imgUrl} height="200px" width= '200px'/>
+                        <p>{value.desc}</p>
+                        <p>Price: {value.pr}</p>
+                        <p>Rating: {value.rat}</p>
+                    </div>)
+                }
             </div>
 
-            {/* <footer className="footer-button">
+            <footer className="footer-button">
                 <button onClick={() => navigate('/')} className='home-button'>Home</button>
                 <button onClick={() => navigate('/addrooms')} className="back-button">Back</button>
                 <button
@@ -174,17 +142,9 @@ const getData = async () =>{
                 >
                     Continue
                 </button>
-            </footer> */}
+            </footer>
             <div>
-                <input onChange={(e)=>setTxt(e.target.value)} />
-                <input type='file' onChange={(e) =>handleUpload(e)} />
-                <button onClick={handleClick}>Add</button>
-                {
-                    data.map(value=><div>
-                        <h1>{value.txtVal}</h1>
-                        <img src={value.imgUrl} height="200px" width= '200px'/>
-                    </div>)
-                }
+               
             </div>
         </div>
     );
